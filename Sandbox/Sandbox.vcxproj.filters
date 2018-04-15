@@ -21,9 +21,15 @@
     <ClCompile Include="src\PassBy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\EnumTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PassBy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnumTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

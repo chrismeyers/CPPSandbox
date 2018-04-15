@@ -155,9 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\EnumTest.h" />
     <ClInclude Include="src\PassBy.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EnumTest.cpp" />
     <ClCompile Include="src\PassBy.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
