@@ -17,3 +17,15 @@ void EnumTest::setLevel(EnumTest::Level l) {
 void EnumTest::setLevel() {
   mLevel = EnumTest::Three;
 }
+
+EnumTest::Food EnumTest::getFood() {
+  return mFood;
+}
+
+void EnumTest::setFood(EnumTest::Food f) {
+  mFood = f;
+}
+
+void EnumTest::setFood() {
+  mFood = EnumTest::Carrots;
+}
