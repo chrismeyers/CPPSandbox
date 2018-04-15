@@ -1,6 +1,7 @@
 #include "EnumTest.h"
 
-EnumTest::EnumTest() {
+EnumTest::EnumTest()
+  : mLevel(EnumTest::Level::One), mFood(EnumTest::Food::Potatoes) {
 }
 
 EnumTest::~EnumTest() {
