@@ -2,22 +2,22 @@
 
 class EnumTest {
 public:
-  enum Level : char {
+  enum class Level {
     One, Two, Three
   };
-  enum Food : char {
+  enum class Food {
     Apples, Potatoes, Carrots
   };
 public:
   EnumTest();
   ~EnumTest();
-  Level getLevel();
-  void setLevel(Level l);
+  EnumTest::Level getLevel();
+  void setLevel(EnumTest::Level l);
   void setLevel();
-  Food getFood();
-  void setFood(Food f);
+  EnumTest::Food getFood();
+  void setFood(EnumTest::Food f);
   void setFood();
 private:
-  Level mLevel;
-  Food mFood;
+  EnumTest::Level mLevel;
+  EnumTest::Food mFood;
 };
