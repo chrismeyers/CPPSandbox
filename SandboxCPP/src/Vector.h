@@ -1,11 +1,15 @@
 #pragma once
 
 #include <string>
+#include <list>
 
 template <typename T>
 class Vector {
 public:
   Vector(std::initializer_list<T> nums) : mSize(nums.size()), mVector(new T[mSize]) {
+    std::copy(nums.begin(), nums.end(), mVector);
+  }
+  Vector(std::list<T> nums) : mSize(nums.size()), mVector(new T[mSize]) {
     std::copy(nums.begin(), nums.end(), mVector);
   }
   Vector(int len) : mSize(len), mVector(new T[len]) {}
@@ -36,16 +40,16 @@ public:
     }
     return sum;
   }
-  Vector<T>* operator+(const Vector<T>& other) const {
+  Vector<T> operator+(const Vector<T>& other) const {
     if(mSize != other.mSize) {
-      return new Vector<T>(0);
+      return Vector<T>(0);
     }
 
-    Vector<T>* tmp = new Vector<T>(mSize);
+    std::list<T> nums;
     for(int i = 0; i < mSize; i++) {
-      tmp->mVector[i] = mVector[i] + other.mVector[i];
+      nums.push_back(mVector[i] + other.mVector[i]);
     }
-    return tmp;
+    return Vector<T>(nums);
   }
 
 private:

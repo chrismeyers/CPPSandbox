@@ -50,13 +50,11 @@ int main() {
   std::cout << "v1 * v2 = " << (v1 * v2) << std::endl;
   std::cout << "v1 * v3 = " << (v1 * v3) << std::endl;
 
-  Vector<double>* v4 = v1 + v2;
-  std::cout << "v1 + v2 = " << (*v4).toString() << std::endl;
-  delete v4;
+  Vector<double> v4 = v1 + v2;
+  std::cout << "v1 + v2 = " << (v4).toString() << std::endl;
 
-  Vector<double>* v5 = v1 + v3;
-  std::cout << "v1 + v3 = " << (*v5).toString() << std::endl;
-  delete v5;
+  Vector<double> v5 = v1 + v3;
+  std::cout << "v1 + v3 = " << (v5).toString() << std::endl;
 
   std::cin.get();
   return 0;
