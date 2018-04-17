@@ -41,10 +41,10 @@ int main() {
 
   std::cout << std::endl << "======================================" << std::endl << std::endl;
 
-  Vector<double> v1 { 1.2, 3.4, 5.6 };
-  Vector<double> v2 { 7.8, 9.0 };
-  Vector<double> v3 { 11.12, 13.14, 15.16 };
-  std::cout << v1.toString() << std::endl; 
+  Vector<double> v1{ 1.2, 3.4, 5.6 };
+  Vector<double> v2{ 7.8, 9.0 };
+  Vector<double> v3{ 11.12, 13.14, 15.16 };
+  std::cout << v1.toString() << std::endl;
   std::cout << v2.toString() << std::endl;
   std::cout << v3.toString() << std::endl;
   std::cout << "v1 * v2 = " << (v1 * v2) << std::endl;
@@ -53,7 +53,7 @@ int main() {
   Vector<double>* v4 = v1 + v2;
   std::cout << "v1 + v2 = " << (*v4).toString() << std::endl;
   delete v4;
-  
+
   Vector<double>* v5 = v1 + v3;
   std::cout << "v1 + v3 = " << (*v5).toString() << std::endl;
   delete v5;
