@@ -2,6 +2,14 @@
 
 #include <string>
 #include <list>
+#include <exception>
+
+class VectorSizeMismatch : public std::exception {
+public:
+  virtual const char* what() const throw() {
+    return "Vector sizes do not match.";
+  }
+};
 
 template <typename T>
 class Vector {
@@ -31,7 +39,7 @@ public:
   }
   T operator*(const Vector<T>& other) const {
     if(mSize != other.mSize) {
-      return -1;
+      throw VectorSizeMismatch();
     }
 
     T sum = 0;
@@ -42,7 +50,7 @@ public:
   }
   Vector<T> operator+(const Vector<T>& other) const {
     if(mSize != other.mSize) {
-      return Vector<T>(0);
+      throw VectorSizeMismatch();
     }
 
     std::list<T> nums;

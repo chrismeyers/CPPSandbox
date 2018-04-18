@@ -47,14 +47,36 @@ int main() {
   std::cout << v1.toString() << std::endl;
   std::cout << v2.toString() << std::endl;
   std::cout << v3.toString() << std::endl;
-  std::cout << "v1 * v2 = " << (v1 * v2) << std::endl;
-  std::cout << "v1 * v3 = " << (v1 * v3) << std::endl;
+  
+  try {
+    std::cout << "v1 * v2 = " << (v1 * v2) << std::endl;
+  }
+  catch(VectorSizeMismatch& e) {
+    std::cout << e.what() << std::endl;
+  }
 
-  Vector<double> v4 = v1 + v2;
-  std::cout << "v1 + v2 = " << (v4).toString() << std::endl;
+  try {
+    std::cout << "v1 * v3 = " << (v1 * v3) << std::endl;
+  }
+  catch(VectorSizeMismatch& e) {
+    std::cout << e.what() << std::endl;
+  }
 
-  Vector<double> v5 = v1 + v3;
-  std::cout << "v1 + v3 = " << (v5).toString() << std::endl;
+  try {
+    Vector<double> v4 = v1 + v2;
+    std::cout << "v1 + v2 = " << (v4).toString() << std::endl;
+  }
+  catch(VectorSizeMismatch& e) {
+    std::cout << e.what() << std::endl;
+  }
+
+  try {
+    Vector<double> v5 = v1 + v3;
+    std::cout << "v1 + v3 = " << (v5).toString() << std::endl;
+  }
+  catch(VectorSizeMismatch& e) {
+    std::cout << e.what() << std::endl;
+  }
 
   std::cin.get();
   return 0;
