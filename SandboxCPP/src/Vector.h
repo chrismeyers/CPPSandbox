@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <list>
 #include <exception>
 
 class VectorSizeMismatch : public std::exception {
@@ -14,15 +13,21 @@ public:
 template <typename T>
 class Vector {
 public:
-  Vector(std::initializer_list<T> nums) : mSize(nums.size()), mVector(new T[mSize]) {
-    std::copy(nums.begin(), nums.end(), mVector);
+  Vector(std::initializer_list<T> nums) : mSize(nums.size()), mVals(new T[mSize]) {
+    std::copy(nums.begin(), nums.end(), mVals);
   }
-  Vector(std::list<T> nums) : mSize(nums.size()), mVector(new T[mSize]) {
-    std::copy(nums.begin(), nums.end(), mVector);
+  Vector(int len) : mSize(len), mVals(new T[len]) {
+    for(int i = 0; i < mSize; i++) {
+      mVals[i] = 0;
+    }
   }
-  Vector(int len) : mSize(len), mVector(new T[len]) {}
+  Vector(const Vector& a) : mSize(a.mSize), mVals(new T[a.mSize]) {
+    for(int i = 0; i < mSize; i++) {
+      mVals[i] = a.mVals[i];
+    }
+  }
   ~Vector() {
-    delete mVector;
+    delete mVals;
   }
   int size() {
     return mSize;
@@ -30,7 +35,7 @@ public:
   std::string toString() {
     std::string str = "";
     for(int i = 0; i < mSize; i++) {
-      str += std::to_string(mVector[i]);
+      str += std::to_string(mVals[i]);
       if(i < mSize - 1) {
         str += ", ";
       }
@@ -44,7 +49,7 @@ public:
 
     T sum = 0;
     for(int i = 0; i < mSize; i++) {
-      sum += mVector[i] * other.mVector[i];
+      sum += mVals[i] * other.mVals[i];
     }
     return sum;
   }
@@ -53,14 +58,14 @@ public:
       throw VectorSizeMismatch();
     }
 
-    std::list<T> nums;
+    Vector<T> tmp(mSize);
     for(int i = 0; i < mSize; i++) {
-      nums.push_back(mVector[i] + other.mVector[i]);
+      tmp.mVals[i] = mVals[i] + other.mVals[i];
     }
-    return Vector<T>(nums);
+    return tmp;
   }
 
 private:
   int mSize;
-  T* mVector;
+  T* mVals;
 };
