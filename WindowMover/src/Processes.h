@@ -6,6 +6,7 @@
 #include <string>
 
 class Processes {
+public:
   typedef std::vector<std::pair<std::string, DWORD>> ProcessMap; // vector<sting name, DWORD pid>
 public:
   Processes();

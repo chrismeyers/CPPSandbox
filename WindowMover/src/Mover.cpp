@@ -2,7 +2,7 @@
 #include <iostream>
 
 Mover::Mover(const std::string& programName) 
-  : mProgramName(programName), mLayout(Layout::CENTER) {
+  : mWindowName(programName), mLayout(Layout::CENTER) {
 
 }
 
@@ -10,51 +10,35 @@ Mover::~Mover() {
 
 }
 
-BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam) {
-  return reinterpret_cast<Mover*>(lParam)->EnumWindowsProc(hwnd);
-}
-
-void Mover::move(const Layout& layout) {
+void Mover::move(const Layout& layout, HWND hwnd) {
   mLayout = layout;
-  EnumWindows(EnumWindowsProcCallback, reinterpret_cast<LPARAM>(this));
-}
 
-bool Mover::EnumWindowsProc(const HWND& hwnd) {
-  char buff[255];
+  std::cout << mWindowName << std::endl;
 
-  if(IsWindowVisible(hwnd)) {
-    GetWindowText(hwnd, (LPSTR)buff, 254);
+  std::vector<int> windowSize = getWindowSize(hwnd);
+  std::vector<int> desktopSize = getDesktopSize();
+  std::vector<int> coords;
 
-    if(strcmp(buff, mProgramName.c_str()) == 0) {
-      std::cout << buff << std::endl;
-
-      std::vector<int> windowSize = getWindowSize(hwnd);
-      std::vector<int> desktopSize = getDesktopSize();
-      std::vector<int> coords;
-      
-      if(mLayout == Layout::CENTER) {
-        coords = getCenterCoords(hwnd, windowSize, desktopSize);
-      }
-      else if(mLayout == Layout::LEFT_CENTER) {
-        coords = getLeftCenterCoords(hwnd, windowSize, desktopSize);
-      }
-      else if(mLayout == Layout::RIGHT_CENTER) {
-        coords = getRightCenterCoords(hwnd, windowSize, desktopSize);
-      }
-
-      if(!windowSize.empty() && !coords.empty()) {
-        std::cout << "Window Size: " << windowSize[(int)WindowDimension::WIDTH] << "x" << windowSize[(int)WindowDimension::HEIGHT] << std::endl;
-        std::cout << "Desktop Size: " << desktopSize[(int)WindowDimension::WIDTH] << "x" << desktopSize[(int)WindowDimension::HEIGHT] << std::endl;
-        std::cout << "Moved Location: " << coords[(int)PositionComponent::X] << ", " << coords[(int)PositionComponent::Y] << std::endl;
-
-        MoveWindow(hwnd,
-          coords[(int)PositionComponent::X], coords[(int)PositionComponent::Y],
-          windowSize[(int)WindowDimension::WIDTH], windowSize[(int)WindowDimension::HEIGHT],
-          true);
-      }
-    }
+  if(mLayout == Layout::CENTER) {
+    coords = getCenterCoords(hwnd, windowSize, desktopSize);
   }
-  return true;
+  else if(mLayout == Layout::LEFT_CENTER) {
+    coords = getLeftCenterCoords(hwnd, windowSize, desktopSize);
+  }
+  else if(mLayout == Layout::RIGHT_CENTER) {
+    coords = getRightCenterCoords(hwnd, windowSize, desktopSize);
+  }
+
+  if(!windowSize.empty() && !coords.empty()) {
+    std::cout << "Window Size: " << windowSize[(int)WindowDimension::WIDTH] << "x" << windowSize[(int)WindowDimension::HEIGHT] << std::endl;
+    std::cout << "Desktop Size: " << desktopSize[(int)WindowDimension::WIDTH] << "x" << desktopSize[(int)WindowDimension::HEIGHT] << std::endl;
+    std::cout << "Moved Location: " << coords[(int)PositionComponent::X] << ", " << coords[(int)PositionComponent::Y] << std::endl;
+
+    MoveWindow(hwnd,
+      coords[(int)PositionComponent::X], coords[(int)PositionComponent::Y],
+      windowSize[(int)WindowDimension::WIDTH], windowSize[(int)WindowDimension::HEIGHT],
+      true);
+  }
 }
 
 std::vector<int> Mover::getWindowSize(const HWND& hwnd) {

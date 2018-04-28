@@ -130,11 +130,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lister.cpp" />
     <ClCompile Include="src\Mover.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Processes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lister.h" />
     <ClInclude Include="src\Mover.h" />
     <ClInclude Include="src\Processes.h" />
   </ItemGroup>

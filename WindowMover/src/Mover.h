@@ -19,14 +19,14 @@ public:
 public:
   Mover(const std::string& programName);
   ~Mover();
-  void move(const Layout& layout);
-  bool EnumWindowsProc(const HWND& hwnd);
+  void move(const Layout& layout, HWND hwnd);
   std::vector<int> getWindowSize(const HWND& hwnd);
   std::vector<int> getDesktopSize();
   std::vector<int> getCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
   std::vector<int> getLeftCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
   std::vector<int> getRightCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
+  std::string getWindowName() { return mWindowName; }
 private:
-  std::string mProgramName;
+  std::string mWindowName;
   Layout mLayout;
 };
