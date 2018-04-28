@@ -1,10 +1,12 @@
-#include <windows.h>
+#include "Processes.h"
 #include <stdio.h>
 #include <tchar.h>
 #include <psapi.h>
 #include <sstream>
 #include <iostream>
-#include "Processes.h"
+
+// This isn't needed for the window mover.  However, this is how
+// you can get process data.
 
 Processes::Processes() : mProcessMap(ProcessMap()) {
   buildProcessMap();
@@ -29,11 +31,6 @@ void Processes::buildProcessMap() {
   numProcesses = cbNeeded / sizeof(DWORD);
 
   for(unsigned int i = 0; i < numProcesses; i++) {
-    // Convert DWORD pid to string.
-    std::ostringstream stream;
-    stream << processes[i];
-    std::string pid = stream.str();
-
     if(processes[i] != 0) {
       TCHAR processName[MAX_PATH] = TEXT("<unknown>");
 
@@ -50,13 +47,33 @@ void Processes::buildProcessMap() {
         }
 
         // Update the map.
-        mProcessMap.push_back(std::make_pair(processName, pid));
+        mProcessMap.push_back(std::make_pair(processName, processes[i]));
       }
 
       // Release the handle to the process.
       CloseHandle(hProcess);
     }
   }
+}
+
+DWORD Processes::getPidFromName(std::string name) {
+  for(auto& proc : mProcessMap) {
+    if(proc.first == name) {
+      return proc.second;
+    }
+  }
+
+  return -1;
+}
+
+std::string Processes::getNameFromPid(DWORD pid) {
+  for(auto& proc : mProcessMap) {
+    if(proc.second == pid) {
+      return proc.first;
+    }
+  }
+
+  return "";
 }
 
 void Processes::printProcessMap() {
