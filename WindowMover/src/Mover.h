@@ -14,7 +14,7 @@ public:
     X, Y
   };
   enum class Layout {
-    CENTER, LEFT_CENTER, RIGHT_CENTER
+    CENTER, LEFT_CENTER, RIGHT_CENTER, __LAST
   };
 public:
   Mover(const std::string& programName);
@@ -26,6 +26,7 @@ public:
   std::vector<int> getLeftCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
   std::vector<int> getRightCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
   std::string getWindowName() { return mWindowName; }
+  std::string getLayoutString(const Layout& layout);
 private:
   std::string mWindowName;
   Layout mLayout;

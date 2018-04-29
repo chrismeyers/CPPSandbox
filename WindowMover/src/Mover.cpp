@@ -11,9 +11,14 @@ Mover::~Mover() {
 }
 
 void Mover::move(const Layout& layout, HWND hwnd) {
+  if(!hwnd) {
+    std::cout << "\"" << mWindowName << "\" is not currently running." << std::endl;
+    return;
+  }
+
   mLayout = layout;
 
-  std::cout << mWindowName << std::endl;
+  std::cout << "Moving \"" << mWindowName << "\"..." << std::endl;
 
   std::vector<int> windowSize = getWindowSize(hwnd);
   std::vector<int> desktopSize = getDesktopSize();
@@ -81,4 +86,18 @@ std::vector<int> Mover::getRightCenterCoords(const HWND& hwnd, const std::vector
   y = ((desktopSize[(int)WindowDimension::HEIGHT] - Mover::TASKBAR_HEIGHT) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
 
   return std::vector<int> {x, y};
+}
+
+std::string Mover::getLayoutString(const Layout& layout) {
+  if(layout == Layout::CENTER) {
+    return "Centered";
+  }
+  else if(layout == Layout::LEFT_CENTER) {
+    return "Centered - Left Half";
+  }
+  else if(layout == Layout::RIGHT_CENTER) {
+    return "Centered - Right Half";
+  }
+
+  return "";
 }
