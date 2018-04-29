@@ -3,7 +3,7 @@
 
 Mover::Mover(const std::string& programName) 
   : mWindowName(programName), mLayout(Layout::CENTER) {
-
+  setTaskbarHeight();
 }
 
 Mover::~Mover() {
@@ -74,7 +74,7 @@ std::vector<int> Mover::getDesktopSize() {
 std::vector<int> Mover::getCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize) {
   int x, y;
   x = (desktopSize[(int)WindowDimension::WIDTH] - windowSize[(int)WindowDimension::WIDTH]) / 2;
-  y = ((desktopSize[(int)WindowDimension::HEIGHT] - Mover::TASKBAR_HEIGHT) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
+  y = ((desktopSize[(int)WindowDimension::HEIGHT] - mTaskbarHeight) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
 
   return std::vector<int> {x, y};
 }
@@ -82,7 +82,7 @@ std::vector<int> Mover::getCenterCoords(const HWND& hwnd, const std::vector<int>
 std::vector<int> Mover::getLeftCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize) {
   int x, y;
   x = ((desktopSize[(int)WindowDimension::WIDTH] / 2) - windowSize[(int)WindowDimension::WIDTH]) / 2;
-  y = ((desktopSize[(int)WindowDimension::HEIGHT] - Mover::TASKBAR_HEIGHT) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
+  y = ((desktopSize[(int)WindowDimension::HEIGHT] - mTaskbarHeight) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
 
   return std::vector<int> {x, y};
 }
@@ -90,17 +90,24 @@ std::vector<int> Mover::getLeftCenterCoords(const HWND& hwnd, const std::vector<
 std::vector<int> Mover::getRightCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize) {
   int x, y;
   x = (desktopSize[(int)WindowDimension::WIDTH] / 2) + (((desktopSize[(int)WindowDimension::WIDTH] / 2) - windowSize[(int)WindowDimension::WIDTH]) / 2);
-  y = ((desktopSize[(int)WindowDimension::HEIGHT] - Mover::TASKBAR_HEIGHT) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
+  y = ((desktopSize[(int)WindowDimension::HEIGHT] - mTaskbarHeight) - windowSize[(int)WindowDimension::HEIGHT]) / 2;
 
   return std::vector<int> {x, y};
 }
 
+void Mover::setTaskbarHeight() {
+  APPBARDATA data;
+  data.cbSize = sizeof(data);
+  SHAppBarMessage(ABM_GETTASKBARPOS, &data);
+  mTaskbarHeight = data.rc.bottom - data.rc.top;
+}
+
 std::string Mover::getLayoutString(const Layout& layout) {
-  if(layout == Layout::CENTER) {
-    return "Centered";
-  }
-  else if(layout == Layout::LEFT_CENTER) {
+  if(layout == Layout::LEFT_CENTER) {
     return "Centered - Left Half";
+  }
+  else if(layout == Layout::CENTER) {
+    return "Centered - Middle";
   }
   else if(layout == Layout::RIGHT_CENTER) {
     return "Centered - Right Half";
