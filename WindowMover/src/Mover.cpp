@@ -18,7 +18,13 @@ void Mover::move(const Layout& layout, HWND hwnd) {
 
   mLayout = layout;
 
-  std::cout << "Moving \"" << mWindowName << "\"..." << std::endl;
+  if(IsWindow(hwnd)) {
+    std::cout << "Moving \"" << mWindowName << "\"..." << std::endl;
+  }
+  else {
+    std::cout << "The \"" << mWindowName << "\" window no longer exists." << std::endl;
+    return;
+  }
 
   std::vector<int> windowSize = getWindowSize(hwnd);
   std::vector<int> desktopSize = getDesktopSize();
