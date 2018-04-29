@@ -5,7 +5,7 @@
 #include <string>
 
 bool validSelection(const std::string& s, const int& max) {
-  if(s == "q") {
+  if(s == "q" || s == "quit" || s == "exit") {
     exit(0);
   }
 
@@ -35,7 +35,7 @@ void run() {
 
   std::cout << "Select a window to move: ";
   std::string selectedWindow;
-  std::cin >> selectedWindow;
+  std::getline(std::cin, selectedWindow);
   if(!validSelection(selectedWindow, i)) {
     return;
   }
@@ -52,7 +52,7 @@ void run() {
 
   std::cout << "Select a layout: ";
   std::string positionSelection;
-  std::cin >> positionSelection;
+  std::getline(std::cin, positionSelection);
   if(!validSelection(positionSelection, i)) {
     return;
   }
