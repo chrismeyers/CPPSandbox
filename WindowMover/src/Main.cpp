@@ -32,6 +32,7 @@ bool run() {
     std::cout << i + 1 << ": " << window.first << std::endl;
     i++;
   }
+  std::cout << "(Exit by typing \"q\", \"quit\", or \"exit\")" << std::endl;
 
   std::cout << "Select a window to move: ";
   std::string selectedWindow;
