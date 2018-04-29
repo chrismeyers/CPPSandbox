@@ -11,20 +11,20 @@ Mover::~Mover() {
 }
 
 void Mover::move(const Layout& layout, HWND hwnd) {
+  // Clear the console before moving a window.
+  system("cls");
+
   if(!hwnd) {
-    std::cout << "\"" << mWindowName << "\" is not currently running." << std::endl;
+    std::cout << "\"" << mWindowName << "\" is not currently running." << std::endl << std::endl;
+    return;
+  }
+
+  if(!IsWindow(hwnd)) {
+    std::cout << "\"" << mWindowName << "\" no longer exists." << std::endl << std::endl;
     return;
   }
 
   mLayout = layout;
-
-  if(IsWindow(hwnd)) {
-    std::cout << "Moving \"" << mWindowName << "\"..." << std::endl;
-  }
-  else {
-    std::cout << "The \"" << mWindowName << "\" window no longer exists." << std::endl;
-    return;
-  }
 
   std::vector<int> windowSize = getWindowSize(hwnd);
   std::vector<int> desktopSize = getDesktopSize();
@@ -41,9 +41,10 @@ void Mover::move(const Layout& layout, HWND hwnd) {
   }
 
   if(!windowSize.empty() && !coords.empty()) {
+    std::cout << "Moving \"" << mWindowName << "\"..." << std::endl;
     std::cout << "Window Size: " << windowSize[(int)WindowDimension::WIDTH] << "x" << windowSize[(int)WindowDimension::HEIGHT] << std::endl;
     std::cout << "Desktop Size: " << desktopSize[(int)WindowDimension::WIDTH] << "x" << desktopSize[(int)WindowDimension::HEIGHT] << std::endl;
-    std::cout << "Moved Location: " << coords[(int)PositionComponent::X] << ", " << coords[(int)PositionComponent::Y] << std::endl;
+    std::cout << "Moved Location: " << coords[(int)PositionComponent::X] << ", " << coords[(int)PositionComponent::Y] << std::endl << std::endl;
 
     MoveWindow(hwnd,
       coords[(int)PositionComponent::X], coords[(int)PositionComponent::Y],

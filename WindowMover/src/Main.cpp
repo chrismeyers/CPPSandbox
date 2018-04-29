@@ -20,7 +20,7 @@ bool validSelection(const std::string& s, const int& max) {
   return (*p == 0) && (std::stoi(s) <= max) && (std::stoi(s) > 0);
 }
 
-void run() {
+bool run() {
   Lister lister = Lister();
   Lister::WindowList windows = lister.getWindowList();
 
@@ -37,7 +37,7 @@ void run() {
   std::string selectedWindow;
   std::getline(std::cin, selectedWindow);
   if(!validSelection(selectedWindow, i)) {
-    return;
+    return false;
   }
 
   int windowNum = std::stoi(selectedWindow);
@@ -54,19 +54,23 @@ void run() {
   std::string positionSelection;
   std::getline(std::cin, positionSelection);
   if(!validSelection(positionSelection, i)) {
-    return;
+    return false;
   }
 
   int windowPosition = std::stoi(positionSelection);
   windowPosition--;
 
   mover.move((Mover::Layout)windowPosition, windows[mover.getWindowName()]);
+
+  return true;
 }
 
 int main() {
   while(1) {
-    run();
-    std::cout << std::endl;
+    if(!run()) {
+      // Clear the console if the move was successful.
+      system("cls");
+    }
   }
 
   return 0;
