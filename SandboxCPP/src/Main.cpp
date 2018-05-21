@@ -5,6 +5,8 @@
 #include "Vector.h"
 
 int main() {
+  std::cout << "Using C++ version: " << __cplusplus << std::endl;
+
   std::string name = "Chris";
   std::cout << "Memory address of name: " << &name << std::endl;
   std::cout << name << std::endl;
