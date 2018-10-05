@@ -107,18 +107,18 @@ void memoryTest() {
 
   std::cout << std::endl << "heap" << std::endl << "===========================" << std::endl;
   {
-    MemoryB* b3 = new MemoryB;
-    delete b3;
+    MemoryB* b2 = new MemoryB;
+    delete b2;
   }
 
   std::cout << std::endl << "unique_ptr new" << std::endl << "===========================" << std::endl;
   {
-    std::unique_ptr<MemoryB> b2(new MemoryB);
+    std::unique_ptr<MemoryB> b3(new MemoryB);
   }
 
   std::cout << std::endl << "unique_ptr make_unique" << std::endl << "===========================" << std::endl;
   {
-    std::unique_ptr<MemoryB> b3 = std::make_unique<MemoryB>();
+    std::unique_ptr<MemoryB> b4 = std::make_unique<MemoryB>();
   }
 }
 
