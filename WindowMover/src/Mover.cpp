@@ -26,6 +26,11 @@ void Mover::move(const Layout& layout, HWND hwnd) {
 
   mLayout = layout;
 
+  if(mLayout == Layout::CURRENT) {
+    std::cout << "Keeping \"" << mWindowName << "\" where it is..." << std::endl << std::endl;
+    return;
+  }
+
   // If the window is currently minimized, restore it before moving.
   handleMinimized(hwnd);
 
@@ -114,6 +119,9 @@ std::string Mover::getLayoutString(const Layout& layout) {
   }
   else if(layout == Layout::RIGHT_CENTER) {
     return "Centered - Right Half";
+  }
+  else if(layout == Layout::CURRENT) {
+    return "Keep the current position";
   }
 
   return "";

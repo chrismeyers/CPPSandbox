@@ -13,7 +13,7 @@ public:
     X, Y
   };
   enum class Layout {
-    LEFT_CENTER, CENTER, RIGHT_CENTER, __LAST
+    LEFT_CENTER, CENTER, RIGHT_CENTER, CURRENT, __LAST
   };
 public:
   Mover(const std::string& programName);
