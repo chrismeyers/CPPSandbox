@@ -26,6 +26,9 @@ void Mover::move(const Layout& layout, HWND hwnd) {
 
   mLayout = layout;
 
+  // If the window is currently minimized, restore it before moving.
+  handleMinimized(hwnd);
+
   std::vector<int> windowSize = getWindowSize(hwnd);
   std::vector<int> desktopSize = getDesktopSize();
   std::vector<int> coords;
@@ -114,4 +117,22 @@ std::string Mover::getLayoutString(const Layout& layout) {
   }
 
   return "";
+}
+
+void Mover::handleMinimized(const HWND& hwnd) {
+  WINDOWPLACEMENT placement;
+  memset(&placement, 0, sizeof(WINDOWPLACEMENT));
+  placement.length = sizeof(WINDOWPLACEMENT);
+  GetWindowPlacement(hwnd, &placement);
+
+  switch(placement.showCmd) {
+  case SW_SHOWMINIMIZED:
+    ShowWindow(hwnd, SW_RESTORE);
+    break;
+  default:
+    ShowWindow(hwnd, SW_NORMAL);
+    break;
+  }
+
+  SetForegroundWindow(hwnd);
 }
