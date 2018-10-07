@@ -141,6 +141,4 @@ void Mover::handleMinimized(const HWND& hwnd) {
     ShowWindow(hwnd, SW_NORMAL);
     break;
   }
-
-  SetForegroundWindow(hwnd);
 }
