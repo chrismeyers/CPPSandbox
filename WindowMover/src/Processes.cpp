@@ -8,7 +8,9 @@
 // This isn't needed for the window mover.  However, this is how
 // you can get process data.
 
-Processes::Processes() : mProcessMap(ProcessMap()) {
+Processes::Processes()
+  : mProcessMap(ProcessMap())
+{
   buildProcessMap();
 }
 
@@ -48,10 +50,10 @@ void Processes::buildProcessMap() {
 
         // Update the map.
         mProcessMap.push_back(std::make_pair(processName, processes[i]));
-      }
 
-      // Release the handle to the process.
-      CloseHandle(hProcess);
+        // Release the handle to the process.
+        CloseHandle(hProcess);
+      }
     }
   }
 }

@@ -134,11 +134,15 @@
     <ClCompile Include="src\Mover.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Processes.cpp" />
+    <ClCompile Include="src\Resizer.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Resizer.h" />
     <ClInclude Include="src\Lister.h" />
     <ClInclude Include="src\Mover.h" />
     <ClInclude Include="src\Processes.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

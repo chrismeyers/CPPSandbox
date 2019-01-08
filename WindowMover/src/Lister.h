@@ -13,7 +13,7 @@ public:
   void list();
   bool EnumWindowsProc(const HWND& hwnd);
   void printWindowList();
-  WindowList getWindowList() { return mWindowList; }
+  inline WindowList getWindowList() { return mWindowList; }
 private:
   WindowList mWindowList;
 };

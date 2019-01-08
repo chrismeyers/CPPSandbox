@@ -3,7 +3,8 @@
 #include <algorithm>
 
 Lister::Lister()
-  : mWindowList(WindowList()) {
+  : mWindowList(WindowList())
+{
   list();
 }
 

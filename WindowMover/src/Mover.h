@@ -1,17 +1,10 @@
 #pragma once
 
-#include <windows.h>
-#include <vector>
+#include "Utils.h"
 #include <string>
 
 class Mover {
 public:
-  enum class WindowDimension {
-    WIDTH, HEIGHT
-  };
-  enum class PositionComponent {
-    X, Y
-  };
   enum class Layout {
     LEFT_CENTER, CENTER, RIGHT_CENTER, CURRENT, __LAST
   };
@@ -20,17 +13,16 @@ public:
   ~Mover();
   void move(const Layout& layout, HWND hwnd);
   std::string getLayoutString(const Layout& layout);
-  std::string getWindowName() { return mWindowName; }
+  inline std::string getWindowName() { return mWindowName; }
 private:
-  std::vector<int> getWindowSize(const HWND& hwnd);
-  std::vector<int> getDesktopSize();
-  std::vector<int> getCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
-  std::vector<int> getLeftCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
-  std::vector<int> getRightCenterCoords(const HWND& hwnd, const std::vector<int>& windowSize, const std::vector<int>& desktopSize);
+  WindowMoverUtils::Position getCenterCoords(const HWND& hwnd);
+  WindowMoverUtils::Position getLeftCenterCoords(const HWND& hwnd);
+  WindowMoverUtils::Position getRightCenterCoords(const HWND& hwnd);
   void setTaskbarHeight();
-  void handleMinimized(const HWND& hwnd);
 private:
   std::string mWindowName;
   Layout mLayout;
   int mTaskbarHeight;
+  WindowMoverUtils::WindowSize mWindowSize;
+  WindowMoverUtils::WindowSize mDesktopSize;
 };
