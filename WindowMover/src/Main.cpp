@@ -36,7 +36,7 @@ bool run() {
   windowNum--;
 
   // Resize the window.
-  std::cout << "Change the size of the window? [y/n]: ";
+  std::cout << "Change the size of the window? [y/N]: ";
   std::string shouldChangeSize;
   std::getline(std::cin, shouldChangeSize);
   if(WindowMoverUtils::shouldRestart(shouldChangeSize)) {
