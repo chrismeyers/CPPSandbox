@@ -27,8 +27,11 @@ bool Lister::EnumWindowsProc(const HWND& hwnd) {
   if(IsWindowVisible(hwnd)) {
     GetWindowText(hwnd, (LPSTR)buff, 254);
 
-    if(strcmp(buff, "") != 0) {
-      mWindowList[buff] = hwnd;
+    DWORD pid = -1;
+    GetWindowThreadProcessId(hwnd, &pid);
+
+    if(strcmp(buff, "") != 0 && pid > 0) {
+      mWindowList[buff] = { { buff, pid }, hwnd };
     }
   }
 
@@ -37,6 +40,6 @@ bool Lister::EnumWindowsProc(const HWND& hwnd) {
 
 void Lister::printWindowList() {
   for(auto win : mWindowList) {
-    std::cout << win.first << std::endl;
+    std::cout << WindowMoverUtils::getFormattedWindowInfo(win.second.info) << std::endl;
   }
 }
