@@ -6,7 +6,7 @@
 
 class Lister {
 public:
-  typedef std::map<std::string, HWND> WindowList; // vector<sting name, HWND handle>
+  typedef std::map<std::string, HWND> WindowList; // map<sting name, HWND handle>
 public:
   Lister();
   ~Lister();

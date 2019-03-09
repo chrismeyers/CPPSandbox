@@ -18,8 +18,11 @@ bool run() {
   std::vector<std::string> windowNames;
   int i = 0;
   for(auto& window : windows) {
+    DWORD pid;
+    GetWindowThreadProcessId(window.second, &pid);
+
     windowNames.push_back(window.first);
-    std::cout << i + 1 << ": " << window.first << std::endl;
+    std::cout << i + 1 << ": " << window.first << " [" << pid << "]" << std::endl;
     i++;
   }
 
