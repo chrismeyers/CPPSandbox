@@ -10,19 +10,20 @@ bool run() {
   Lister::WindowList windows = lister.getWindowList();
 
   std::cout << "Usage:\n"
-            << "  - Press Enter to reload list\n"
-            << "  - Exit by typing \"q\", \"quit\", or \"exit\"\n"
-            << "  - Start over by typing \"r\" or \"restart\"\n" << std::endl;
+    << "  - Press Enter to reload list\n"
+    << "  - Exit by typing \"q\", \"quit\", or \"exit\"\n"
+    << "  - Start over by typing \"r\" or \"restart\"\n" << std::endl;
 
   // Select the window to move.
-  std::vector<std::string> windowNames;
+  std::vector<WindowMoverUtils::WindowInfo> windowInfo;
   int i = 0;
   for(auto& window : windows) {
     DWORD pid;
     GetWindowThreadProcessId(window.second, &pid);
 
-    windowNames.push_back(window.first);
-    std::cout << i + 1 << ": " << window.first << " [" << pid << "]" << std::endl;
+    WindowMoverUtils::WindowInfo info({ window.first, pid });
+    windowInfo.push_back(info);
+    std::cout << i + 1 << ": " << WindowMoverUtils::getFormattedWindowInfo(info) << std::endl;
     i++;
   }
 
@@ -46,7 +47,7 @@ bool run() {
     return true;
   }
   else if(WindowMoverUtils::validYes(shouldChangeSize)) {
-    Resizer resizer = Resizer(windowNames[windowNum]);
+    Resizer resizer = Resizer(windowInfo[windowNum]);
 
     std::string windowSize;
     do {
@@ -62,7 +63,7 @@ bool run() {
   }
 
   // Select the Layout.
-  Mover mover = Mover(windowNames[windowNum]);
+  Mover mover = Mover(windowInfo[windowNum]);
 
   for(i = 0; i < (int)Mover::Layout::__LAST; i++) {
     std::cout << i + 1 << ": " << mover.getLayoutString((Mover::Layout)i) << std::endl;
@@ -95,4 +96,3 @@ int main() {
 
   return 0;
 }
-

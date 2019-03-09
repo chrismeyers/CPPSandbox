@@ -5,14 +5,15 @@
 
 class Resizer {
 public:
-  Resizer(const std::string& programName);
+  Resizer(const WindowMoverUtils::WindowInfo& info);
   ~Resizer();
 
   bool parseSize(const std::string& size);
   void resize(const HWND& hwnd);
-  inline std::string getWindowName() { return mWindowName; }
+  inline std::string getWindowName() { return mWindowInfo.name; }
+  inline DWORD getWindowPid() { return mWindowInfo.pid; }
 private:
-  std::string mWindowName;
+  WindowMoverUtils::WindowInfo mWindowInfo;
   WindowMoverUtils::WindowSize mWindowSize;
 };
 

@@ -9,18 +9,19 @@ public:
     LEFT_CENTER, CENTER, RIGHT_CENTER, CURRENT, __LAST
   };
 public:
-  Mover(const std::string& programName);
+  Mover(const WindowMoverUtils::WindowInfo& info);
   ~Mover();
   void move(const Layout& layout, HWND hwnd);
   std::string getLayoutString(const Layout& layout);
-  inline std::string getWindowName() { return mWindowName; }
+  inline std::string getWindowName() { return mWindowInfo.name; }
+  inline DWORD getWindowPid() { return mWindowInfo.pid; }
 private:
   WindowMoverUtils::Position getCenterCoords(const HWND& hwnd);
   WindowMoverUtils::Position getLeftCenterCoords(const HWND& hwnd);
   WindowMoverUtils::Position getRightCenterCoords(const HWND& hwnd);
   void setTaskbarHeight();
 private:
-  std::string mWindowName;
+  WindowMoverUtils::WindowInfo mWindowInfo;
   Layout mLayout;
   int mTaskbarHeight;
   WindowMoverUtils::WindowSize mWindowSize;

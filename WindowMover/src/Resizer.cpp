@@ -2,8 +2,8 @@
 #include <iostream>
 #include <sstream>
 
-Resizer::Resizer(const std::string& programName)
-  : mWindowName(programName), mWindowSize({})
+Resizer::Resizer(const WindowMoverUtils::WindowInfo& info)
+  : mWindowInfo(info), mWindowSize({})
 {
 
 }
@@ -53,18 +53,20 @@ void Resizer::resize(const HWND& hwnd) {
   std::cout << std::endl;
 
   if(!hwnd) {
-    std::cerr << "[WARN] \"" << mWindowName << "\" is not currently running." << std::endl << std::endl;
+    std::cerr << "[WARN] \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo)
+              << "\" is not currently running." << std::endl << std::endl;
     return;
   }
 
   if(!IsWindow(hwnd)) {
-    std::cerr << "[WARN] \"" << mWindowName << "\" no longer exists." << std::endl << std::endl;
+    std::cerr << "[WARN] \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo)
+              << "\" no longer exists." << std::endl << std::endl;
     return;
   }
 
   WindowMoverUtils::bringToFront(hwnd);
 
-  std::cout << "Resizing \"" << mWindowName << "\"...\n"
+  std::cout << "Resizing \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo) << "\"...\n"
             << "  - Window Size: " << mWindowSize.width << "x" << mWindowSize.height << "\n" << std::endl;
 
   // TODO: The sizes are a little off when set this way. The adjustments

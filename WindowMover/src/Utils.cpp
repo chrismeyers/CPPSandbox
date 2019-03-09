@@ -80,4 +80,8 @@ namespace WindowMoverUtils {
     // Give control back to the command prompt.
     SetForegroundWindow(cmdPrompt);
   }
+
+  std::string getFormattedWindowInfo(const WindowInfo& info) {
+    return info.name + " [" + std::to_string(info.pid) + "]";
+  }
 }

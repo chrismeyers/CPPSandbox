@@ -1,8 +1,8 @@
 #include "Mover.h"
 #include <iostream>
 
-Mover::Mover(const std::string& programName) 
-  : mWindowName(programName), mLayout(Layout::CENTER), mTaskbarHeight(0),
+Mover::Mover(const WindowMoverUtils::WindowInfo& info)
+  : mWindowInfo(info), mLayout(Layout::CENTER), mTaskbarHeight(0),
     mWindowSize({}), mDesktopSize({})
 {
   setTaskbarHeight();
@@ -16,19 +16,22 @@ void Mover::move(const Layout& layout, HWND hwnd) {
   std::cout << std::endl;
 
   if(!hwnd) {
-    std::cerr << "[WARN] \"" << mWindowName << "\" is not currently running." << std::endl << std::endl;
+    std::cerr << "[WARN] \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo)
+              << "\" is not currently running." << std::endl << std::endl;
     return;
   }
 
   if(!IsWindow(hwnd)) {
-    std::cerr << "[WARN] \"" << mWindowName << "\" no longer exists." << std::endl << std::endl;
+    std::cerr << "[WARN] \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo)
+              << "\" no longer exists." << std::endl << std::endl;
     return;
   }
 
   mLayout = layout;
 
   if(mLayout == Layout::CURRENT) {
-    std::cout << "Keeping \"" << mWindowName << "\" where it is..." << std::endl << std::endl;
+    std::cout << "Keeping \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo)
+              << "\" where it is..." << std::endl << std::endl;
     return;
   }
 
@@ -48,7 +51,7 @@ void Mover::move(const Layout& layout, HWND hwnd) {
     coords = getRightCenterCoords(hwnd);
   }
 
-  std::cout << "Moving \"" << mWindowName << "\"...\n"
+  std::cout << "Moving \"" << WindowMoverUtils::getFormattedWindowInfo(mWindowInfo) << "\"...\n"
             << "  - Window Size: " << mWindowSize.width << "x" << mWindowSize.height << "\n"
             << "  - Desktop Size: " << mDesktopSize.width << "x" << mDesktopSize.height << "\n"
             << "  - Moved Location: " << coords.X << ", " << coords.Y << "\n" << std::endl;
